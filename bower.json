@@ -1,0 +1,19 @@
+{
+  "name": "hello-world",
+  "description": "A simple node js tutorial",
+  "main": "index.js",
+  "authors": [
+    "Luke D'Alfonso <pokemonmegaman@yahoo.com>"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "/public/vendors",
+    "test",
+    "tests"
+  ]
+}
