@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 mongoose.connect("mongodb://localhost/test");
 var db = mongoose.connection;
+
 db.on('error', console.error.bind(console, 'connection error:')); //if error, log it
 db.once('open', function() {
     //code to run once connection established (function callback) goes here
@@ -12,46 +13,21 @@ db.once('open', function() {
         extended: true
     }));
     
-    //hello?name=raul
-    app.get("/hello", function(req, res){
-        var name = req.query.name;
-        if (name == undefined){
-            name = 'world';
-        }
-        res.send("Hello " + name + "!");
-    });
+    //////////////////////
+    //Begin MongoDB models
+    //////////////////////
     
-    var contactSchema = mongoose.Schema({
-        fname: String,
-        lname: String,
-        email: String
-    });
+    ////////////////////
+    //End MongoDB models
+    ////////////////////
     
-    var Contact = mongoose.model("Contact", contactSchema);
+    //////////////////////
+    //Begin Express routes
+    //////////////////////
     
-    app.post("/submit", function(req, res){
-        var data = req.body;
-        console.log(req.body);
-        var newContact = new Contact(data);
-        newContact.save(function(err){
-           if (!err){
-               res.send("Data submitted sucessfully!");
-           } else {
-               console.error(err);
-               res.send("We got an err:" + err);
-           }
-        });
-    });
-    
-    app.get("/contacts", function(req, res){
-       var firstname = req.query.fname;
-       Contact.find({fname : firstname}, function(err, contacts){
-            if (err) console.log("Something broke!");
-            console.log(contacts[0]);
-            res.send(contacts[0]); 
-       });
-    });
-    
+    ////////////////////
+    //End Express routes
+    ////////////////////
     app.listen(process.env.PORT, '0.0.0.0', function(err){
         if (err){
             console.error(err);
